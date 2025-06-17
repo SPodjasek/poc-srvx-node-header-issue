@@ -1,14 +1,10 @@
 import express from 'express';
 import { toNodeHandler } from 'srvx/node';
-import logger from 'morgan';
+import morgan from 'morgan';
 
 const app = express();
 
-app.use(
-  logger(app.get('env') === 'production' ? 'combined' : 'dev', {
-    skip: () => app.get('env') === 'test',
-  })
-);
+app.use(morgan('tiny'));
 
 const webHandler = async (webReq) => {
   return new Response(`🔥`, {
